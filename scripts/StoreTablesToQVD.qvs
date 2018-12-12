@@ -1,7 +1,7 @@
 SUB StoreTablesToQVD (QVDFolder,KeepOption)
 /* ===========================================================
 - Sub Routine Name: StoreTablesToQVD
-- Description: Store all tables into QVD. As of now, it is not working.
+- Description: Store all tables into QVD.
 - Author: Hajime Uchiyama
 - Last Update: 9/18/2018
 - Aruguments: (make sure hard-coded arguments need to be wrapped by a pair of single quoates) 
