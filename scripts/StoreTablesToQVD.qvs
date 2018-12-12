@@ -16,7 +16,7 @@ FOR vCount = vNoOfTables - 1 to 0 Step -1
     Trace Storing [$(vTableName)]
      ;
 
-     STORE [$(vTableName)] INTO $(QVDFolder)$(vTableName).qvd (qvd);
+     STORE [$(vTableName)] INTO [$(QVDFolder)$(vTableName).qvd] (qvd);
 
     If $(KeepOption) <> '1' Then
         Drop Table [$(vTableName)];
