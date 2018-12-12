@@ -3,7 +3,7 @@ SUB StoreTablesToQVD (QVDFolder,KeepOption)
 - Sub Routine Name: StoreTablesToQVD
 - Description: Store all tables into QVD.
 - Author: Hajime Uchiyama
-- Last Update: 9/18/2018
+- Last Update: 12/12/2018
 - Aruguments: (make sure hard-coded arguments need to be wrapped by a pair of single quoates) 
     QVDFolder: The folder location of the QVDs to be stored (ends with the tailing forwardslash '/')
     KeepOption: '1' = keep the table in memory, '0' = drop the table
