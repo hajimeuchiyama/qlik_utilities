@@ -1,0 +1,38 @@
+SUB LoadFromQVD (QVDFolder)
+/* ===========================================================
+- Sub Routine Name: LoadFromQVD
+- Description: Load all QVD files in the speficied folder.
+- Author: Hajime Uchiyama
+- Last Update: 12/20/2018
+- Aruguments: (make sure hard-coded arguments need to be wrapped by a pair of single quoates) 
+    QVDFolder: The folder location of the QVDs to be stored (ends with the tailing forwardslash '/')
+=========================================================== */
+
+// Load from QVD files
+Trace Loading data from QVD...
+=================================;
+
+For Each vQVD in FileList('$(QVDFolder)*.qvd')
+Trace Loading $(vQVD)
+--------------;
+    Let vTable = QvdTableName('$(vQVD)');
+    Trace Loading $(vTable) Table
+    ;
+    [$(vTable)]:
+    Load *
+    From [$(vQVD)] (qvd);
+Next vQVD
+
+
+Trace Reading time stamp of the last loaded data...
+=================================;
+
+Let vDataLoadTimeStamp = QvdCreateTime('$(vQVD)');
+
+Set vQVD=;
+Set vTable=;
+
+Trace Loading data completed
+=================================;
+
+End SUB
