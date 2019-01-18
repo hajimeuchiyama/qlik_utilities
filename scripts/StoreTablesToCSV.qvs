@@ -1,0 +1,29 @@
+SUB StoreTablesToCSV (CSVFolder,KeepOption)
+/* ===========================================================
+- Sub Routine Name: StoreTablesToCSV
+- Description: Store all tables into CSV.
+- Author: Hajime Uchiyama
+- Last Update: 10/25/2018
+- Aruguments: (make sure hard-coded arguments need to be wrapped by a pair of single quoates) 
+    CSVFolder: The folder location of the QVDs to be stored (ends with the tailing forwardslash '/')
+    KeepOption: '1' = keep the table in memory, '0' = drop the table
+=========================================================== */
+Let vNoOfTables = NoOfTables();
+
+FOR vCount = vNoOfTables - 1 to 0 Step -1
+
+    LET vTableName = TableName($(vCount));
+    Trace Storing [$(vTableName)]
+     ;
+
+     STORE [$(vTableName)] INTO [$(CSVFolder)$(vTableName).csv] (txt);
+
+    If $(KeepOption) <> '1' Then
+        Drop Table [$(vTableName)];
+    Endif
+NEXT vCount
+
+Set vCount=;
+Set vTableName=;
+
+End SUB
