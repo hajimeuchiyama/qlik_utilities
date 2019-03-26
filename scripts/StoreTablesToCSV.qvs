@@ -1,22 +1,38 @@
-SUB StoreTablesToCSV (CSVFolder,KeepOption)
+SUB StoreTablesToCSV (CSVFolder,KeepOption,FileExt,FilePtn)
 /* ===========================================================
 - Sub Routine Name: StoreTablesToCSV
 - Description: Store all tables into CSV.
 - Author: Hajime Uchiyama
-- Last Update: 1/25/2019
+- Last Update: 3/26/2019
 - Aruguments: (make sure hard-coded arguments need to be wrapped by a pair of single quoates) 
     CSVFolder: The folder location of the QVDs to be stored (ends with the tailing forwardslash '/')
     KeepOption: '1' = keep the table in memory, '0' = drop the table
+    FileExt: (Optional) If not provided, 'csv' will be used
+    FilePtn: (Optional) If provided, the file names matching with FilePtn will still be stored as specified extention in FileExt
 =========================================================== */
 //Let vNoOfTables = NoOfTables();
+
+If Len('$(FileExt)') > 0 Then
+    Set vFileExt = $(FileExt);
+Else    
+    Set vFileExt = 'csv';
+Endif
 
 FOR vCount = NoOfTables() - 1 to 0 Step -1
 
     LET vTableName = TableName($(vCount));
     Trace Storing [$(vTableName)]
      ;
-
-     STORE [$(vTableName)] INTO [$(CSVFolder)$(vTableName).csv] (txt);
+     
+     If Len('$(FilePtn)')>0 Then
+        If WildMatch('$(vTableName)','$(FilePtn)') Then
+            STORE [$(vTableName)] INTO [$(CSVFolder)$(vTableName).$(vFileExt)] (txt);
+        Else
+            STORE [$(vTableName)] INTO [$(CSVFolder)$(vTableName).csv] (txt);
+        Endif
+    Else
+        STORE [$(vTableName)] INTO [$(CSVFolder)$(vTableName).$(vFileExt)] (txt);
+    Endif
 
     If $(KeepOption) <> '1' Then
         Drop Table [$(vTableName)];
